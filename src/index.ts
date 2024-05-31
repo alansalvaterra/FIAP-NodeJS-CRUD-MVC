@@ -1,18 +1,24 @@
 import * as express from "express"
 import { AppDataSource } from "./data-source"
+import { RegisterHomeRoutes } from './routes/HomeRoutes';
 import { RegisterUserRoutes } from "./routes/UserRoutes"
 import { RegisterEmployeeCheckInOutsRoutes } from "./routes/EmployeeCheckInOutsRoutes"
-import { RegisterHomeRoutes } from './routes/HomeRoutes';
+
+const path = require('path');
 
 AppDataSource.initialize().then(async () => {
 
     const PORT = 3000;
 
-    // create express app
+    // Create express app
     const app = express()
 
     // Middleware for parsing JSON
     app.use(express.json());
+
+    //Config Express to use EJS
+    app.set('views', path.join(__dirname, 'views'));
+    app.set('view engine', 'ejs');
 
     //Register Home Route
     RegisterHomeRoutes(app);
