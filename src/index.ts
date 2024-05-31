@@ -1,47 +1,29 @@
 import * as express from "express"
-import * as bodyParser from "body-parser"
-import { Request, Response } from "express"
 import { AppDataSource } from "./data-source"
-import { UserRoutes } from "./routes/userRoutes"
-import { EmployeeCheckInOutsRoutes } from "./routes/EmployeeCheckInOutsRoutes"
+import { RegisterUserRoutes } from "./routes/UserRoutes"
+import { RegisterEmployeeCheckInOutsRoutes } from "./routes/EmployeeCheckInOutsRoutes"
+import { RegisterHomeRoutes } from './routes/HomeRoutes';
 
 AppDataSource.initialize().then(async () => {
 
+    const PORT = 3000;
+
     // create express app
     const app = express()
-    app.use(bodyParser.json())
 
-    // register express routes from defined application routes
-    UserRoutes.forEach(route => {
-        (app as any)[route.method](route.route, (req: Request, res: Response, next: Function) => {
-            const result = (new (route.controller as any))[route.action](req, res, next)
-            if (result instanceof Promise) {
-                result.then(result => result !== null && result !== undefined ? res.send(result) : undefined)
+    // Middleware for parsing JSON
+    app.use(express.json());
 
-            } else if (result !== null && result !== undefined) {
-                res.json(result)
-            }
-        })
-    })
+    //Register Home Route
+    RegisterHomeRoutes(app);
 
-    EmployeeCheckInOutsRoutes.forEach(route => {
-        (app as any)[route.method](route.route, (req: Request, res: Response, next: Function) => {
-            const result = (new (route.controller as any))[route.action](req, res, next)
-            if (result instanceof Promise) {
-                result.then(result => result !== null && result !== undefined ? res.send(result) : undefined)
-
-            } else if (result !== null && result !== undefined) {
-                res.json(result)
-            }
-        })
-    })
-
-    // setup express app here
-    // ...
+    //Register Routes
+    RegisterUserRoutes(app);
+    RegisterEmployeeCheckInOutsRoutes(app);
 
     // start express server
-    app.listen(3000)
+    app.listen(PORT)
 
-    console.log("Express server has started on port 3000. Open http://localhost:3000/users to see results")
+    console.log(`Express server has started on port ${PORT}. Open http://localhost:${PORT} to see results`)
 
 }).catch(error => console.log(error))

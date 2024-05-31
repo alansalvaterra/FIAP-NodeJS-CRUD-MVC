@@ -9,4 +9,6 @@ export class EmployeeCheckInOutsController {
     async all(request: Request, response: Response, next: NextFunction) {
         return this.employeeCheckInOutsRepository.find()
     }
+
+    //TODO: CONTINUE FROM HERE
 }

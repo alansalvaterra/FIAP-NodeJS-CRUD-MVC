@@ -6,7 +6,7 @@ export class UsersController {
 
     private userRepository = AppDataSource.getRepository(Users)
 
-    async all(request: Request, response: Response, next: NextFunction) {
+    async all(req: Request, res: Response, next: NextFunction) {
         return this.userRepository.find()
     }
 
