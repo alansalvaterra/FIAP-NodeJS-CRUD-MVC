@@ -2,7 +2,7 @@ import { AppDataSource } from "../data-source"
 import { NextFunction, Request, Response } from "express"
 import { Users } from "../entity/Users"
 
-export class UserController {
+export class UsersController {
 
     private userRepository = AppDataSource.getRepository(Users)
 
