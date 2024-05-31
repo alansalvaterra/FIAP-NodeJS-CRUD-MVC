@@ -1,8 +1,8 @@
 import { Entity, PrimaryGeneratedColumn, Column, OneToMany } from "typeorm"
-import { EmployeeCheckInOuts } from "./EmployeeCheckInOuts"
+import { CheckInOuts } from "./CheckInOuts"
 
 @Entity()
-export class Users {
+export class Employees {
 
     @PrimaryGeneratedColumn()
     id: number
@@ -16,7 +16,7 @@ export class Users {
     @Column()
     funcao: string
 
-    @OneToMany(() => EmployeeCheckInOuts, employeeCheckInOuts => EmployeeCheckInOuts.users)
-    employeeCheckInOuts: EmployeeCheckInOuts[];
+    @OneToMany(() => CheckInOuts, CheckInOuts => CheckInOuts.employees)
+    CheckInOuts: CheckInOuts[];
     
 }

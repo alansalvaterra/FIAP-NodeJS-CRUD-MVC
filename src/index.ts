@@ -1,8 +1,8 @@
 import * as express from "express"
 import { AppDataSource } from "./data-source"
 import { RegisterHomeRoutes } from './routes/HomeRoutes';
-import { RegisterUserRoutes } from "./routes/UserRoutes"
-import { RegisterEmployeeCheckInOutsRoutes } from "./routes/EmployeeCheckInOutsRoutes"
+import { RegisterEmployeesRoutes } from "./routes/EmployeeRoutes"
+import { RegisterCheckInOutsRoutes } from "./routes/CheckInOutsRoutes"
 
 const path = require('path');
 
@@ -27,8 +27,8 @@ AppDataSource.initialize().then(async () => {
     RegisterHomeRoutes(app);
 
     //Register Routes
-    RegisterUserRoutes(app);
-    RegisterEmployeeCheckInOutsRoutes(app);
+    RegisterEmployeesRoutes(app);
+    RegisterCheckInOutsRoutes(app);
 
     // start express server
     app.listen(PORT)

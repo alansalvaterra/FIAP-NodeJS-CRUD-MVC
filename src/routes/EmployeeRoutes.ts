@@ -1,30 +1,30 @@
-import { UsersController } from "../controller/UsersController"
+import { EmployeesController } from "../controller/EmployeesController"
 import { Request, Response } from "express"
 
-export const UserRoutes = [{
+export const EmployeesRoutes = [{
     method: "get",
-    route: "/users",
-    controller: UsersController,
+    route: "/employees",
+    controller: EmployeesController,
     action: "all"
 }, {
     method: "get",
-    route: "/users/:id",
-    controller: UsersController,
+    route: "/employees/:id",
+    controller: EmployeesController,
     action: "one"
 }, {
     method: "post",
-    route: "/users",
-    controller: UsersController,
+    route: "/employees",
+    controller: EmployeesController,
     action: "save"
 }, {
     method: "delete",
-    route: "/users/:id",
-    controller: UsersController,
+    route: "/employees/:id",
+    controller: EmployeesController,
     action: "remove"
 }];
 
-export const RegisterUserRoutes = (app: any) => {
-    UserRoutes.forEach(route => {
+export const RegisterEmployeesRoutes = (app: any) => {
+    EmployeesRoutes.forEach(route => {
         (app as any)[route.method](route.route, (req: Request, res: Response, next: Function) => {
             const result = (new (route.controller as any))[route.action](req, res, next)
             if (result instanceof Promise) {
