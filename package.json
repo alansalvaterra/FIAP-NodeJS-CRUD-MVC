@@ -19,7 +19,8 @@
    },
    "scripts": {
       "start": "nodemon --exec ts-node src/index.ts",
-      "typeorm": "typeorm-ts-node-commonjs"
+      "typeorm": "typeorm-ts-node-commonjs",
+      "lint-commit": "commitlint -E HUSKY_GIT_PARAMS"
    },
    "husky": {
       "hooks": {
