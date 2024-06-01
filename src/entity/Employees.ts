@@ -14,7 +14,7 @@ export class Employees {
     email: string
 
     @Column()
-    funcao: string
+    role: string
 
     @OneToMany(() => CheckInOuts, CheckInOuts => CheckInOuts.employees)
     CheckInOuts: CheckInOuts[];

@@ -1,5 +1,9 @@
-import { Request, Response } from 'express';
 import { HomeController } from '../controller/HomeController';
+import { Router } from 'express';
+import { EmployeesController } from '../controller/EmployeesController';
+
+const router = Router();
+const employeesController = new EmployeesController();
 
 export const HomeRoutes = [
     {
@@ -10,17 +14,7 @@ export const HomeRoutes = [
     }
 ];
 
-export const RegisterHomeRoutes = (app: any) => {
-    HomeRoutes.forEach(route => {
-        (app as any)[route.method](route.route, async (req: Request, res: Response, next: Function) => {
-            try {
-                const result = await (new (route.controller as any))[route.action](req, res, next);
-                if (result !== null && result !== undefined) {
-                    res.json(result);
-                }
-            } catch (error) {
-                next(error);
-            }
-        });
-    });
-};
+export function RegisterHomeRoutes(app) {
+    router.get('/', (req, res, next) => employeesController.renderHome(req, res, next));
+    app.use('/', router);
+}

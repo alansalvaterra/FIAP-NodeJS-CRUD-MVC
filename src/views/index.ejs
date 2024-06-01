@@ -24,7 +24,14 @@
         </tr>
       </thead>
       <tbody>
-
+        <% employees.forEach(function(employee) { %>
+          <tr>
+            <td><%= employee.name %> <%= employee.lastName %></td>
+            <td><%= employee.email %></td>
+            <td><%= employee.role %></td>
+            <td><a href="/frequency">Ver registros</a></td>
+          </tr>
+        <% }); %>
       </tbody>
     </table>
 

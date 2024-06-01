@@ -50,4 +50,8 @@ export class EmployeesController {
         return "employee has been removed"
     }
 
+    async renderHome(req: Request, res: Response, next: NextFunction) {
+        const employees = await this.employeeRepository.find();
+        res.render('index', { title: 'Sistema de Gestão de Horas Trabalhadas', employees: employees });
+    }
 }
