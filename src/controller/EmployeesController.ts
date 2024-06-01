@@ -76,7 +76,7 @@ export class EmployeesController {
     static async renderMaintence(req: Request, res: Response, next: NextFunction) {
         const employeeRepository = AppDataSource.getRepository(Employees);
         const employees = await employeeRepository.find();
-        res.render('maintence', { title: 'Manutenção', employees });
+        res.render('employeeMaintencePage', { title: 'Manutenção', employees });
     }
 
     static async renderEdit(req: Request, res: Response, next: NextFunction) {
@@ -86,10 +86,10 @@ export class EmployeesController {
         const controller = new EmployeesController();
         const employeeDetails = await controller.one(req, res);
 
-        res.render('editEmployee', { title: 'Editar Funcionário', employee: employeeDetails });
+        res.render('employeeEdit', { title: 'Editar Funcionário', employee: employeeDetails });
     }
 
     static async renderNewEmployee(req: Request, res: Response, next: NextFunction) {
-        res.render('newEmployee', { title: 'Novo Funcionário' });
+        res.render('employeeNew', { title: 'Novo Funcionário' });
     }
 }
