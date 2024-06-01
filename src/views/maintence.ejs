@@ -1,0 +1,66 @@
+<%- include('partials/header'); %>
+
+    <h1>Manutenção de Funcionários</h1>
+
+    <table>
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Nome</th>
+                <th>E-mail</th>
+                <th>Função</th>
+                <th>Ações</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% employees.forEach(function(employee) { %>
+                <tr>
+                    <td>
+                        <%= employee.id %>
+                    </td>
+                    <td>
+                        <%= employee.name %>
+                    </td>
+                    <td>
+                        <%= employee.email %>
+                    </td>
+                    <td>
+                        <%= employee.role %>
+                    </td>
+                    <td>
+                        <button onclick="window.location.href = '/employees/edit/<%= employee.id %>'">Editar</button>
+                        <button onclick="deleteEmployee(<%= employee.id %>)">Excluir</button>
+                    </td>
+                </tr>
+                <% }); %>
+        </tbody>
+    </table>
+
+    <button onclick="addEmployee()">Cadastrar Novo Funcionário</button>
+    <button onclick="window.history.back()">Voltar</button>
+
+    <%- include('partials/footer'); %>
+
+        <script>
+            function deleteEmployee(employeeId) {
+                if (confirm('Tem certeza que deseja excluir este funcionário?')) {
+                    fetch(`/api/employees/${employeeId}`, {
+                        method: 'DELETE',
+                    })
+                        .then(response => {
+                            if (!response.ok) {
+                                throw new Error('Erro ao excluir funcionário');
+                            }
+                            alert('Funcionário excluído com sucesso!');
+                            window.location.reload(); 
+                        })
+                        .catch(error => {
+                            console.error('Erro:', error);
+                        });
+                }
+            }
+
+            function addEmployee() {
+                window.location.href = '/employees/new';
+            }
+        </script>

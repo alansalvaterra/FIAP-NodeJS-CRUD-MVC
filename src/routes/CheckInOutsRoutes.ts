@@ -1,30 +1,31 @@
 import { CheckInOutsController } from "../controller/CheckInOutsController"
 import { Request, Response } from "express"
 
-export const CheckInOutsRoutes = [{
+//API
+export const APICheckInOutsEndPoints = [{
     method: "get",
-    route: "/frequency",
+    route: "/api/frequency",
     controller: CheckInOutsController,
     action: "all"
 }, {
     method: "get",
-    route: "/frequency/:id",
+    route: "/api/frequency/:id",
     controller: CheckInOutsController,
     action: "one"
 }, {
     method: "post",
-    route: "/frequency",
+    route: "/api/frequency",
     controller: CheckInOutsController,
     action: "save"
 }, {
     method: "delete",
-    route: "/frequency/:id",
+    route: "/api/frequency/:id",
     controller: CheckInOutsController,
     action: "remove"
 }];
 
-export const RegisterCheckInOutsRoutes = (app: any) => {
-    CheckInOutsRoutes.forEach(route => {
+export const CheckInOutsRoutes = (app: any) => {
+    APICheckInOutsEndPoints.forEach(route => {
         (app as any)[route.method](route.route, (req: Request, res: Response, next: Function) => {
             const result = (new (route.controller as any))[route.action](req, res, next)
             if (result instanceof Promise) {

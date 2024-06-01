@@ -1,7 +1,6 @@
-import { Request, Response, NextFunction } from 'express';
+import { Request, Response } from 'express';
 
 export class HomeController {
-    async welcome(req: Request, res: Response, next: NextFunction) {
-        res.render('index', { title: 'SIGHT - Sistema de Gestão de Horas Trabalhadas' })
+    async welcome(req: Request, res: Response) {
     }
 }

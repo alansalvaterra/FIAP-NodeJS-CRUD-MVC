@@ -1,41 +1,27 @@
-<!DOCTYPE html>
-<html>
+<%- include('partials/header'); %>
 
-<head>
-  <title>
-    <%= title %>
-  </title>
-  <link rel='stylesheet' type="text/css" href='/stylesheets/style.css' />
-</head>
+  <h1>Sistema de Gestão de Horas Trabalhadas</h1>
 
-<body>
-  <%- include('partials/header'); %>
-
-    <h1>
-      <%= title %>
-    </h1>
-    <table>
-      <thead>
+  <table>
+    <thead>
+      <tr>
+        <th>Funcionário</th>
+        <th>Função</th>
+        <th>Registro de Ponto</th>
+      </tr>
+    </thead>
+    <tbody>
+      <% employees.forEach(function(employee) { %>
         <tr>
-          <th>Nome</th>
-          <th>Email</th>
-          <th>Função</th>
-          <th>Registro de Ponto</th>
+          <td>
+            <%= employee.name %>
+          </td>
+          <td>
+            <%= employee.role %>
+          </td>
+          <td><a href="/frequency">Ver registros</a></td>
         </tr>
-      </thead>
-      <tbody>
-        <% employees.forEach(function(employee) { %>
-          <tr>
-            <td><%= employee.name %> <%= employee.lastName %></td>
-            <td><%= employee.email %></td>
-            <td><%= employee.role %></td>
-            <td><a href="/frequency">Ver registros</a></td>
-          </tr>
         <% }); %>
-      </tbody>
-    </table>
-
-    <%- include('partials/footer'); %>
-</body>
-
-</html>
+    </tbody>
+  </table>
+  <%- include('partials/footer'); %>

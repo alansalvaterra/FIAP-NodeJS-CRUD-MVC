@@ -1,0 +1,58 @@
+<%- include('partials/header'); %>
+
+    <h1>Cadastro de Funcionário</h1>
+
+    <form id="newEmployeeForm">
+        <label for="name">Nome:</label>
+        <input type="text" id="name" name="name">
+        <br>
+    
+        <label for="email">E-Mail:</label>
+        <input type="text" id="email" name="email">
+        <br>
+        
+        <label for="role">Função:</label>
+        <input type="text" id="role" name="role">
+        <br>
+    </form>
+
+    <button onclick="addEmployee()">Confirmar</button>
+    <button type="button" onclick="goBack()">Voltar</button>
+
+    <%- include('partials/footer'); %>
+
+    <script>
+        function addEmployee() {
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const role = document.getElementById('role').value;
+    
+            const data = {
+                name: name,
+                email: email,
+                role: role
+            };
+    
+            fetch('/api/employees', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Erro ao criar funcionário');
+                }
+                alert('Funcionário criado com sucesso!');
+                window.location.href = '/employees/maintence'; 
+            })
+            .catch(error => {
+                console.error('Erro:', error);
+            });
+        }
+    
+        function goBack() {
+            window.history.back();
+        }
+    </script>

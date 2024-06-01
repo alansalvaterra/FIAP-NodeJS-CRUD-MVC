@@ -5,7 +5,7 @@ import { EmployeesController } from '../controller/EmployeesController';
 const router = Router();
 const employeesController = new EmployeesController();
 
-export const HomeRoutes = [
+export const APIHomeRoutesEndPoints = [
     {
         method: 'get',
         route: '/',
@@ -14,7 +14,7 @@ export const HomeRoutes = [
     }
 ];
 
-export function RegisterHomeRoutes(app) {
+export function HomeRoutes(app) {
     router.get('/', (req, res, next) => employeesController.renderHome(req, res, next));
     app.use('/', router);
 }
