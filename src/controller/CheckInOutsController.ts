@@ -10,5 +10,10 @@ export class CheckInOutsController {
         return this.CheckInOutsRepository.find()
     }
 
-    //TODO: CONTINUE FROM HERE
+    //TODO: CONTINUE CRUD FROM HERE
+
+    static async renderCheckInOutsPage(request: Request, response: Response, next: NextFunction) {
+        response.render("checkInOutPage", { title: "Check In/Out" });
+    }
 }
+

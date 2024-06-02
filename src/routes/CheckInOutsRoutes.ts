@@ -1,5 +1,8 @@
 import { CheckInOutsController } from "../controller/CheckInOutsController"
-import { Request, Response } from "express"
+import { Request, Response, NextFunction } from "express"
+import { Router } from 'express';
+
+const router = Router();
 
 //API
 export const APICheckInOutsEndPoints = [{
@@ -22,18 +25,32 @@ export const APICheckInOutsEndPoints = [{
     route: "/api/frequency/:id",
     controller: CheckInOutsController,
     action: "remove"
+}, {
+    method: "put",
+    route: "/api/frequency/:id",
+    controller: CheckInOutsController,
+    action: "update"
 }];
 
 export const CheckInOutsRoutes = (app: any) => {
     APICheckInOutsEndPoints.forEach(route => {
-        (app as any)[route.method](route.route, (req: Request, res: Response, next: Function) => {
-            const result = (new (route.controller as any))[route.action](req, res, next)
-            if (result instanceof Promise) {
-                result.then(result => result !== null && result !== undefined ? res.send(result) : undefined)
-
-            } else if (result !== null && result !== undefined) {
-                res.json(result)
+        router[route.method](route.route, async (req: Request, res: Response, next: Function) => {
+            try {
+                const result = await (new (route.controller as any))[route.action](req, res, next);
+                if (result !== null && result !== undefined) {
+                    res.send(result);
+                }
+            } catch (error) {
+                next(error);
             }
-        })
-    })
-}
+        });
+    });
+    app.use('/', router);
+};
+
+//Pages
+router.get('/timemanagement', (req: Request, res: Response, next: NextFunction) => {
+    return CheckInOutsController.renderCheckInOutsPage(req, res, next);
+});
+
+
