@@ -14,10 +14,10 @@
         </thead>
         <tbody>
             <% checkInOuts.forEach(checkInOut => { %>
-                <tr>
-                    <td><%= checkInOut.checkIn.toLocaleDateString() %></td>
-                    <td><%= checkInOut.checkIn.toLocaleTimeString() %></td>
-                    <td><%= checkInOut.checkOut.toLocaleTimeString() %></td>
+               <tr>
+                    <td><%= new Date(checkInOut.checkIn).toLocaleDateString('pt-BR') %></td>
+                    <td><%= new Date(checkInOut.checkIn).toLocaleTimeString() %></td>
+                    <td><%= new Date(checkInOut.checkOut).toLocaleTimeString() %></td>
                 </tr>
             <% }); %>
         </tbody>
