@@ -9,6 +9,6 @@ Steps to run this project:
 
 ## Pendências:
 - readme.md;
-- lógica de alteração e registro do ponto (necessario?);
+- lógica de alteração e exclusao do registro do ponto (necessario?);
 - lógica para corrigir horário para o GMT -3;
 - melhorar o front.
