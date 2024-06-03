@@ -1,0 +1,28 @@
+<%- include('partials/header'); %>
+
+    <h1>Registros de Entrada e Saída</h1>
+
+    <form id="newCheckInOutForm" method="post">
+        <label for="id">Id:</label>
+        <input type="text" id="id" id="name">
+        <br>
+    
+        <label for="date">Data:</label>
+        <input type="text" id="date" name="date">
+        <br>
+        
+        <label for="checkin">Horário de Entrada:</label>
+        <input type="text" id="checkin" name="checkin">
+        <br>
+
+        <label for="checkout">Horário de Saída:</label>
+        <input type="text" id="checkout" name="checkout">
+        <br>
+    </form>
+
+    <button type="submit">Confirmar</button>
+    <button type="button" onclick="window.location.href = '/';">Voltar</button>
+   
+    <%- include('partials/footer'); %>
+
+  

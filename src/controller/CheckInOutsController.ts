@@ -22,7 +22,7 @@ export class CheckInOutsController {
 
     //TODO: CONTINUE CRUD FROM HERE
 
-    static async renderCheckInOutsPage(req: Request, res: Response, next: NextFunction) {
+    static async renderControlReport(req: Request, res: Response, next: NextFunction) {
         try {
             const controller = new CheckInOutsController();
             const employeeId = parseInt(req.params.id);
@@ -30,7 +30,7 @@ export class CheckInOutsController {
             const employeeDetails = await controller.employeesRepository.findOne({ where: { id: employeeId } });
 
             if (employeeDetails && checkInOuts) {
-                res.render("checkInOutPage", { title: "Check In/Out", employeeDetails, employeeId, checkInOuts });
+                res.render("checkInOutControlReport", { title: "Check In/Out", employeeDetails, employeeId, checkInOuts });
             } else {
                 res.status(404).send('Funcionário não encontrado');
             }
@@ -38,4 +38,9 @@ export class CheckInOutsController {
             next(error);
         }
     }
+
+    static async renderDailyRecord(req: Request, res: Response, next: NextFunction) {
+        res.render('checkInOutDailyRecord', { title: 'Registro de Ponto' });
+    }
 }
+

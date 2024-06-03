@@ -50,7 +50,12 @@ export const CheckInOutsRoutes = (app: any) => {
 
 //Pages
 router.get('/timemanagement/:id', (req: Request, res: Response, next: NextFunction) => {
-    return CheckInOutsController.renderCheckInOutsPage(req, res, next);
+    return CheckInOutsController.renderControlReport(req, res, next);
 });
+
+router.get('/dailyrecord', (req: Request, res: Response, next: NextFunction) => {
+    return CheckInOutsController.renderDailyRecord(req, res, next);
+});
+
 
 
