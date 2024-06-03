@@ -49,7 +49,7 @@ export const CheckInOutsRoutes = (app: any) => {
 };
 
 //Pages
-router.get('/timemanagement', (req: Request, res: Response, next: NextFunction) => {
+router.get('/timemanagement/:id', (req: Request, res: Response, next: NextFunction) => {
     return CheckInOutsController.renderCheckInOutsPage(req, res, next);
 });
 

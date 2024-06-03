@@ -1,3 +1,29 @@
-//TODO - Desenvolver pagina de check in e check out
+<%- include('partials/header'); %>
 
-<p>Teste</p>
+    <h1>Registros de Entrada e Saída</h1>
+
+    <h2>Funcionário: <%= employeeDetails.name %></h2>
+
+    <table>
+        <thead>
+            <tr>
+                <th>Data</th>
+                <th>Início</th>
+                <th>Término</th>
+            </tr>
+        </thead>
+        <tbody>
+            <% checkInOuts.forEach(checkInOut => { %>
+                <tr>
+                    <td><%= checkInOut.checkIn.toLocaleDateString() %></td>
+                    <td><%= checkInOut.checkIn.toLocaleTimeString() %></td>
+                    <td><%= checkInOut.checkOut.toLocaleTimeString() %></td>
+                </tr>
+            <% }); %>
+        </tbody>
+    </table>
+
+   
+    <%- include('partials/footer'); %>
+
+  

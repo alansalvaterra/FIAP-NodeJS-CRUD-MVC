@@ -5,6 +5,7 @@ import { EmployeesRoutes } from "./routes/EmployeeRoutes"
 import { CheckInOutsRoutes } from "./routes/CheckInOutsRoutes"
 import path = require('path');
 import helmet from 'helmet';
+const crypto = require('crypto');
 
 
 AppDataSource.initialize().then(async () => {
@@ -17,15 +18,24 @@ AppDataSource.initialize().then(async () => {
     // Middleware for parsing JSON
     app.use(express.json());
 
+    // Middleware to generate a nonce for each request
+    // app.use((req, res, next) => {
+    //     res.locals.nonce = crypto.randomBytes(16).toString('base64');
+    //     next();
+    // });
+
     // Middleware Helmet for CSP
-    app.use(helmet({
-        contentSecurityPolicy: {
-            directives: {
-                defaultSrc: ["'self'"],
-                fontSrc: ["'self'", 'https://use.typekit.net', 'data:']
-            }
-        }
-    }));
+    // app.use(helmet({
+    //     contentSecurityPolicy: {
+    //         directives: {
+    //             defaultSrc: ["'self'"],
+    //             scriptSrc: ["'self'"],
+    //             styleSrc: ["'self'"],
+    //             fontSrc: ["'self'"],
+    //             scriptSrcAttr: ["'none'"], // Adicionado para inline event handlers
+    //         }
+    //     }
+    // }));
 
     // Config Express to use EJS
     app.set('views', path.join(__dirname, 'views'));

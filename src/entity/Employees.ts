@@ -16,7 +16,7 @@ export class Employees {
     @Column()
     role: string
 
-    @OneToMany(() => CheckInOuts, CheckInOuts => CheckInOuts.employees)
-    CheckInOuts: CheckInOuts[];
+    @OneToMany(() => CheckInOuts, checkInOut => checkInOut.employee)
+    checkInOuts: CheckInOuts[];
     
 }

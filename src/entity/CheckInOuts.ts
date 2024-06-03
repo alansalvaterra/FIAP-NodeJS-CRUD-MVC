@@ -13,9 +13,9 @@ export class CheckInOuts {
     @Column()
     checkOut: Date
 
-    @ManyToOne(() => Employees, (employees) => employees.CheckInOuts, { eager: true })
+    @ManyToOne(() => Employees, employee => employee.checkInOuts, { eager: true })
     @JoinColumn({ name: 'employeeId' })
-    employees: Employees;
-    static employees: any
+    employee: Employees;
+
 }
 

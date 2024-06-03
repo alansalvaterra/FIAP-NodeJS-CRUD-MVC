@@ -28,20 +28,44 @@
                         <%= employee.role %>
                     </td>
                     <td>
-                        <button onclick="window.location.href = '/employees/edit/<%= employee.id %>'">Editar</button>
-                        <button onclick="deleteEmployee(<%= employee.id %>)">Excluir</button>
+                        <button class="edit-btn" data-id="<%= employee.id %>">Editar</button>
+                        <button class="delete-btn" data-id="<%= employee.id %>">Excluir</button>
                     </td>
                 </tr>
                 <% }); %>
         </tbody>
     </table>
 
-    <button onclick="addEmployee()">Cadastrar Novo Funcionário</button>
-    <button onclick="window.history.back()">Voltar</button>
+    <button id="add-employee-btn">Cadastrar Novo Funcionário</button>
+    <button id="back-btn">Voltar</button>
 
     <%- include('partials/footer'); %>
 
         <script>
+            document.addEventListener('DOMContentLoaded', (event) => {
+                document.querySelectorAll('.edit-btn').forEach(button => {
+                    button.addEventListener('click', function () {
+                        const employeeId = this.getAttribute('data-id');
+                        window.location.href = `/employees/edit/${employeeId}`;
+                    });
+                });
+
+                document.querySelectorAll('.delete-btn').forEach(button => {
+                    button.addEventListener('click', function () {
+                        const employeeId = this.getAttribute('data-id');
+                        deleteEmployee(employeeId);
+                    });
+                });
+
+                document.getElementById('add-employee-btn').addEventListener('click', function () {
+                    addEmployee();
+                });
+
+                document.getElementById('back-btn').addEventListener('click', function () {
+                    window.history.back();
+                });
+            });
+
             function deleteEmployee(employeeId) {
                 if (confirm('Tem certeza que deseja excluir este funcionário?')) {
                     fetch(`/api/employees/${employeeId}`, {
@@ -52,7 +76,7 @@
                                 throw new Error('Erro ao excluir funcionário');
                             }
                             alert('Funcionário excluído com sucesso!');
-                            window.location.reload(); 
+                            window.location.reload();
                         })
                         .catch(error => {
                             console.error('Erro:', error);
