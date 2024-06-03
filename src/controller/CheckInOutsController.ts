@@ -20,6 +20,28 @@ export class CheckInOutsController {
         return checkInOuts;
     }
 
+    async save(req: Request, res: Response) {
+        const { checkIn, checkOut, employeeId } = req.body;
+
+        try {
+            const employee = await this.employeesRepository.findOneBy({ id: employeeId });
+            if (!employee) {
+                return res.status(404).send({ error: "Employee not found" });
+            }
+
+            const checkInOut = new CheckInOuts();
+            checkInOut.checkIn = new Date(checkIn);
+            checkInOut.checkOut = new Date(checkOut);
+            checkInOut.employee = employee;
+
+            const savedCheckInOut = await this.checkInOutsRepository.save(checkInOut);
+            return res.status(201).send(savedCheckInOut);
+        } catch (error) {
+            console.error(error);
+            return res.status(500).send({ error: "Internal Server Error" });
+        }
+    }
+
     //TODO: CONTINUE CRUD FROM HERE
 
     static async renderControlReport(req: Request, res: Response, next: NextFunction) {

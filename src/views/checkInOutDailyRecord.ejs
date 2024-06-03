@@ -1,28 +1,72 @@
 <%- include('partials/header'); %>
 
-    <h1>Registros de Entrada e Saída</h1>
+<h1>Registros de Entrada e Saída</h1>
 
-    <form id="newCheckInOutForm" method="post">
-        <label for="id">Id:</label>
-        <input type="text" id="id" id="name">
-        <br>
-    
-        <label for="date">Data:</label>
-        <input type="text" id="date" name="date">
-        <br>
-        
-        <label for="checkin">Horário de Entrada:</label>
-        <input type="text" id="checkin" name="checkin">
-        <br>
+<form id="newCheckInOutForm" method="post">
+    <label for="employeeId">Matrícula do Funcionário:</label>
+    <input type="text" id="employeeId" name="employeeId">
+    <br>
 
-        <label for="checkout">Horário de Saída:</label>
-        <input type="text" id="checkout" name="checkout">
-        <br>
-    </form>
+    <label for="date">Data:</label>
+    <input type="date" id="date" name="date">
+    <br>
+
+    <label for="checkIn">Horário de Entrada:</label>
+    <input type="time" id="checkIn" name="checkIn">
+    <br>
+
+    <label for="checkOut">Horário de Saída:</label>
+    <input type="time" id="checkOut" name="checkOut">
+    <br>
 
     <button type="submit">Confirmar</button>
     <button type="button" onclick="window.location.href = '/';">Voltar</button>
-   
-    <%- include('partials/footer'); %>
+</form>
 
-  
+<script>
+    document.getElementById('newCheckInOutForm').addEventListener('submit', async function (event) {
+        event.preventDefault();
+
+        const employeeId = document.getElementById('employeeId').value;
+        const date = document.getElementById('date').value;
+        const checkInTime = document.getElementById('checkIn').value;
+        const checkOutTime = document.getElementById('checkOut').value;
+
+        const checkIn = `${date}T${checkInTime}:00`;
+        const checkOut = `${date}T${checkOutTime}:00`;
+
+        const formData = {
+            employeeId,
+            checkIn,
+            checkOut
+        };
+
+        const confirmation = confirm("Tem certeza que deseja realizar o registro do ponto?");
+        if (!confirmation) {
+            return;
+        }
+
+        try {
+            const response = await fetch('/api/frequency', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify(formData)
+            });
+
+            if (response.ok) {
+                const result = await response.json();
+                alert('Registro salvo com sucesso!');
+                window.location.href = '/';
+            } else {
+                const error = await response.json();
+                alert(`Erro: ${error.error}`);
+            }
+        } catch (error) {
+            alert('Erro ao salvar registro.');
+        }
+    });
+</script>
+
+<%- include('partials/footer'); %>
